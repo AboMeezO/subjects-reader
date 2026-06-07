@@ -1,20 +1,21 @@
 @import 'tailwindcss';
 
 :root {
-  color: #25211c;
-  background: #f4f0e8;
+  color: #e2e2df;
+  background: #0d0f10;
   font-family:
     ui-serif, Georgia, Cambria, 'Times New Roman', 'Noto Naskh Arabic',
     'Noto Serif Arabic', serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --page: #f4f0e8;
-  --panel: #fffaf1;
-  --line: #d9d0c1;
-  --muted: #766d62;
-  --ink: #25211c;
-  --accent: #355f5a;
+  --page: #0d0f10;
+  --panel: #17191b;
+  --sidebar: #111315;
+  --line: #303438;
+  --muted: #a4a6a8;
+  --ink: #e2e2df;
+  --accent: #9fb7c7;
 }
 
 * {
@@ -44,7 +45,7 @@ a {
 
 .reader-sidebar {
   border-inline-end: 1px solid var(--line);
-  background: #eee7dc;
+  background: var(--sidebar);
   padding: 22px;
   position: sticky;
   top: 0;
@@ -85,15 +86,15 @@ a {
 
 .document-link:hover,
 .document-link:focus-visible {
-  border-color: var(--line);
-  background: rgba(255, 250, 241, 0.62);
+  border-color: #50565c;
+  background: #1b1e21;
   outline: none;
 }
 
 .document-link[aria-current='page'] {
   background: var(--panel);
-  border-color: #b8ad9b;
-  box-shadow: 0 2px 8px rgba(77, 65, 49, 0.08);
+  border-color: #60676e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
 }
 
 .document-link strong {
@@ -134,7 +135,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: clamp(20px, 5vw, 54px);
-  box-shadow: 0 8px 22px rgba(77, 65, 49, 0.08);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
   line-height: 1.78;
   font-size: clamp(1rem, 1vw + 0.78rem, 1.18rem);
   overflow-wrap: anywhere;
@@ -154,7 +155,7 @@ a {
 .markdown-body h3 {
   line-height: 1.25;
   letter-spacing: 0;
-  color: #1f1b17;
+  color: #f0f0ed;
 }
 
 .markdown-body h1 {
@@ -205,7 +206,7 @@ a {
 }
 
 .markdown-body th {
-  background: #ece4d7;
+  background: #202326;
 }
 
 .empty-state {
