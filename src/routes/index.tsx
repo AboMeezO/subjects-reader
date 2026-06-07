@@ -1,5 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import { getDocumentPayload } from '../documents'
 
@@ -63,7 +66,12 @@ function Home() {
                 <span>{formatDate(selected.updatedAt)}</span>
               </div>
               <article className="markdown-body" dir="auto">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm, remarkBreaks]}
+                  rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                >
+                  {content}
+                </ReactMarkdown>
               </article>
             </>
           ) : (

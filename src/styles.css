@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'highlight.js/styles/github-dark.css';
 
 :root {
   color: #e2e2df;
@@ -147,7 +148,10 @@ a {
 
 .markdown-body h1,
 .markdown-body h2,
-.markdown-body h3 {
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
   line-height: 1.25;
   letter-spacing: 0;
   color: #f0f0ed;
@@ -170,14 +174,64 @@ a {
   margin: 1.5rem 0 0.55rem;
 }
 
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-size: 1rem;
+  margin: 1.2rem 0 0.45rem;
+}
+
 .markdown-body p,
 .markdown-body ul,
-.markdown-body ol {
+.markdown-body ol,
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body details,
+.markdown-body figure {
   margin: 0.8rem 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-inline-start: 1.45em;
+}
+
+.markdown-body ul {
+  list-style: disc;
+}
+
+.markdown-body ul ul {
+  list-style: circle;
+}
+
+.markdown-body ul ul ul {
+  list-style: square;
+}
+
+.markdown-body ol {
+  list-style: decimal;
+}
+
+.markdown-body ol ol {
+  list-style: lower-alpha;
+}
+
+.markdown-body ol ol ol {
+  list-style: lower-roman;
 }
 
 .markdown-body li + li {
   margin-top: 0.28rem;
+}
+
+.markdown-body li > p {
+  margin: 0.3rem 0;
+}
+
+.markdown-body input[type='checkbox'] {
+  margin-inline-end: 0.45em;
+  transform: translateY(0.08em);
 }
 
 .markdown-body a {
@@ -186,11 +240,73 @@ a {
   text-underline-offset: 3px;
 }
 
+.markdown-body strong {
+  color: #f4f4f1;
+  font-weight: 700;
+}
+
+.markdown-body em {
+  color: #dedbd2;
+}
+
+.markdown-body s {
+  color: var(--muted);
+}
+
+.markdown-body mark {
+  background: #51461f;
+  color: #fff1a8;
+  padding: 0.05em 0.22em;
+  border-radius: 3px;
+}
+
+.markdown-body blockquote {
+  color: #c4c7c9;
+  border-inline-start: 3px solid #68737c;
+  padding-inline-start: 1em;
+}
+
+.markdown-body hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+.markdown-body code {
+  background: #202326;
+  border: 1px solid #343a40;
+  border-radius: 4px;
+  color: #f1e6c8;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.88em;
+  padding: 0.12em 0.32em;
+}
+
+.markdown-body pre {
+  background: #111315;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: auto;
+  padding: 14px 16px;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  padding: 0;
+}
+
 .markdown-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
   font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
 }
 
 .markdown-body th,
@@ -202,6 +318,45 @@ a {
 
 .markdown-body th {
   background: #202326;
+}
+
+.markdown-body img,
+.markdown-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.markdown-body kbd {
+  background: #202326;
+  border: 1px solid #4b535a;
+  border-bottom-color: #69727a;
+  border-radius: 4px;
+  color: #f0f0ed;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.82em;
+  padding: 0.08em 0.35em;
+}
+
+.markdown-body sup,
+.markdown-body sub {
+  line-height: 0;
+}
+
+.markdown-body dl {
+  margin: 1rem 0;
+}
+
+.markdown-body dt {
+  color: #f0f0ed;
+  font-weight: 700;
+}
+
+.markdown-body dd {
+  margin: 0.25rem 0 0.75rem;
+  padding-inline-start: 1.2rem;
 }
 
 .empty-state {
