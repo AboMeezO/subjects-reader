@@ -1,6 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
 import { readdir, readFile, stat } from 'node:fs/promises'
-import path from 'node:path'
 
 type DocumentSummary = {
   slug: string
@@ -17,6 +16,7 @@ type DocumentPayload = {
 }
 
 const rootDirectory = process.cwd()
+const notesDirectory = `${rootDirectory}/content/notes`
 
 function titleFromFilename(filename: string) {
   return filename
@@ -32,20 +32,15 @@ function slugFromFilename(filename: string) {
 }
 
 async function getMarkdownFiles() {
-  const entries = await readdir(rootDirectory, { withFileTypes: true })
+  const entries = await readdir(notesDirectory, { withFileTypes: true })
   const files = entries
-    .filter(
-      (entry) =>
-        entry.isFile() &&
-        entry.name.toLowerCase().endsWith('.md') &&
-        entry.name.toLowerCase() !== 'readme.md',
-    )
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'))
     .map((entry) => entry.name)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
 
   return Promise.all(
     files.map(async (filename) => {
-      const fileStat = await stat(path.join(rootDirectory, filename))
+      const fileStat = await stat(`${notesDirectory}/${filename}`)
       return {
         slug: slugFromFilename(filename),
         title: titleFromFilename(filename),
@@ -75,7 +70,7 @@ export const getDocumentPayload = createServerFn({ method: 'GET' })
       return { documents, selected: null, content: '' }
     }
 
-    const filePath = path.resolve(rootDirectory, selected.filename)
+    const filePath = `${notesDirectory}/${selected.filename}`
     const content = await readFile(filePath, 'utf8')
 
     return { documents, selected, content }
