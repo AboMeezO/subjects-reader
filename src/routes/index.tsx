@@ -105,6 +105,10 @@ function Home() {
       </aside>
       <section className="reader-main">
         <div className="document-frame">
+          <nav className="top-nav" aria-label="Primary">
+            <Link to="/">Notes</Link>
+            <Link to="/exams">Exams</Link>
+          </nav>
           {selected ? (
             <>
               <div className="document-meta">
