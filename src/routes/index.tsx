@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
+import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarLeftExpand } from 'react-icons/tb'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
 import ReactMarkdown from 'react-markdown'
@@ -34,10 +36,42 @@ function formatDate(value: string) {
 
 function Home() {
   const { documents, selected, content } = Route.useLoaderData()
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+
+  useEffect(() => {
+    const storedValue = window.localStorage.getItem('subjects-sidebar-open')
+    if (storedValue) {
+      setSidebarOpen(storedValue === 'true')
+    }
+  }, [])
+
+  function toggleSidebar() {
+    setSidebarOpen((currentValue) => {
+      const nextValue = !currentValue
+      window.localStorage.setItem('subjects-sidebar-open', String(nextValue))
+      return nextValue
+    })
+  }
 
   return (
-    <main className="reader-shell">
-      <aside className="reader-sidebar" aria-label="Documents">
+    <main className="reader-shell" data-sidebar={sidebarOpen ? 'open' : 'closed'}>
+      <button
+        className="sidebar-toggle"
+        type="button"
+        aria-controls="document-sidebar"
+        aria-expanded={sidebarOpen}
+        aria-label={sidebarOpen ? 'Hide files' : 'Show files'}
+        title={sidebarOpen ? 'Hide files' : 'Show files'}
+        onClick={toggleSidebar}
+      >
+        {sidebarOpen ? <TbLayoutSidebarLeftCollapse /> : <TbLayoutSidebarLeftExpand />}
+      </button>
+      <aside
+        className="reader-sidebar"
+        id="document-sidebar"
+        aria-label="Documents"
+        hidden={!sidebarOpen}
+      >
         <div className="reader-brand">
           <h1>Subjects Reader</h1>
           <p>{documents.length} Markdown files</p>
