@@ -527,6 +527,39 @@ a {
   font-size: 0.9rem;
 }
 
+.exam-intro {
+  align-items: start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin-block-end: 18px;
+}
+
+.exam-intro p {
+  color: #c9cbcc;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 72ch;
+}
+
+.exam-intro button {
+  background: #202326;
+  border: 1px solid #4a5056;
+  border-radius: 6px;
+  color: var(--ink);
+  cursor: pointer;
+  flex: 0 0 auto;
+  font: inherit;
+  padding: 9px 12px;
+}
+
+.exam-intro button:hover,
+.exam-intro button:focus-visible {
+  background: #262a2e;
+  border-color: #687079;
+  outline: none;
+}
+
 .exam-score {
   color: var(--muted);
   margin-block-end: 18px;
@@ -549,10 +582,87 @@ a {
   padding-inline: 6px;
 }
 
+.question-block legend span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 400;
+  margin-block-end: 4px;
+}
+
 .question-block label {
+  border: 1px solid transparent;
+  border-radius: 6px;
   display: flex;
   gap: 10px;
   margin-block-start: 10px;
+  padding: 8px 10px;
+}
+
+.question-block label[data-state='selected'] {
+  background: #1d2023;
+  border-color: #4a5056;
+}
+
+.question-block label[data-state='correct'] {
+  background: #1c2821;
+  border-color: #4f6d59;
+}
+
+.reading-block {
+  border-block: 1px solid var(--line);
+  padding: 18px 0;
+}
+
+.reading-block h2 {
+  color: #f0f0ed;
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+}
+
+.reading-block p {
+  color: #d5d6d3;
+  line-height: 1.75;
+  margin: 0.8rem 0;
+}
+
+.written-question textarea {
+  background: #111315;
+  border: 1px solid #3a4046;
+  border-radius: 6px;
+  color: var(--ink);
+  display: block;
+  font: inherit;
+  line-height: 1.55;
+  margin-block-start: 12px;
+  padding: 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.written-question textarea:focus {
+  border-color: #687079;
+  outline: none;
+}
+
+.written-question > p {
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+
+.model-answer {
+  background: #121719;
+  border-inline-start: 3px solid #6f7f89;
+  color: #d6d8d8;
+  display: grid;
+  gap: 5px;
+  line-height: 1.6;
+  margin-block-start: 12px;
+  padding: 10px 12px;
+}
+
+.model-answer strong {
+  color: #f0f0ed;
 }
 
 @media (max-width: 760px) {
@@ -593,5 +703,13 @@ a {
 
   .reader-main {
     padding-top: 18px;
+  }
+
+  .exam-intro {
+    display: grid;
+  }
+
+  .exam-intro button {
+    justify-self: start;
   }
 }

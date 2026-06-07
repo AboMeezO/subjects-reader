@@ -2,12 +2,11 @@
 
 Target: Jordan Tawjihi English regular ministerial exam for generation 2007, question paper and answer key.
 
-Current status: no accessible official question PDF plus answer-key PDF was found during the web search.
+Current status: source PDFs were provided/found from Watad and extracted locally into structured exam data.
 
-Sources checked:
+Sources:
 
-- Awa2el has an accessible listing for the 2024 supplementary English ministry exam, but the direct PDF request returned an HTML protection page outside the browser session.
-- Awa2el pages reference English `دورة 2025`, but the English 2025 route currently returns a 404.
-- Search results mostly point to video solution pages, prep packs, older exams, or non-English subjects.
+- Question PDF: https://assets-watad-me.fra1.digitaloceanspaces.com/wp-content/uploads/2025/06/%D8%A7%D9%86%D8%AC%D9%84%D9%8A%D8%B2%D9%8A-1.pdf
+- Answer PDF: https://assets-watad-me.fra1.digitaloceanspaces.com/wp-content/uploads/2025/06/%D8%A7%D8%AC%D8%A7%D8%A8%D8%A7%D8%AA-%D8%A7%D9%84%D8%A7%D9%86%D8%AC%D9%84%D9%8A%D8%B2%D9%8A.pdf
 
-The exams feature is ready to accept structured questions once a usable source PDF and answer key are available.
+The source PDFs are kept out of the public repository. The site stores the extracted exam text and model answers only.

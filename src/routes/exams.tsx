@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
-import { exams, getExam } from '../examData'
+import { getExam } from '../examData'
 
 type SearchParams = {
   exam?: string
@@ -18,11 +18,15 @@ export const Route = createFileRoute('/exams')({
 function ExamsPage() {
   const exam = Route.useLoaderData()
   const [answers, setAnswers] = useState<Record<string, number>>({})
+  const [writtenAnswers, setWrittenAnswers] = useState<Record<string, string>>({})
+  const [showAnswers, setShowAnswers] = useState(false)
+  const choiceQuestions = exam.questions.filter((question) => question.type === 'choice')
+  const writtenQuestions = exam.questions.filter((question) => question.type === 'written')
   const score = useMemo(() => {
-    return exam.questions.reduce((total, question) => {
+    return choiceQuestions.reduce((total, question) => {
       return answers[question.id] === question.answerIndex ? total + 1 : total
     }, 0)
-  }, [answers, exam.questions])
+  }, [answers, choiceQuestions])
 
   return (
     <main className="exam-shell">
@@ -36,54 +40,91 @@ function ExamsPage() {
         <div className="exam-heading">
           <p>Exam mode</p>
           <h1>{exam.title}</h1>
-          <span>{exam.status === 'ready' ? `${exam.questions.length} questions` : 'Source needed'}</span>
+          <span>
+            {exam.duration} · {choiceQuestions.length} MCQ · {writtenQuestions.length} written
+          </span>
         </div>
 
-        {exam.status === 'source-needed' ? (
-          <section className="exam-source-state">
-            <h2>Question and answer PDFs are not ready yet</h2>
-            <p>{exam.description}</p>
-            <div className="source-list">
-              {exam.sources.map((source) => (
-                <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
-                  <strong>{source.label}</strong>
-                  <span>{source.note}</span>
-                </a>
+        <section className="exam-intro">
+          <p>{exam.description}</p>
+          <button type="button" onClick={() => setShowAnswers((current) => !current)}>
+            {showAnswers ? 'Hide answers' : 'Show answers'}
+          </button>
+        </section>
+
+        <div className="exam-score">
+          Score: {score}/{choiceQuestions.length}
+        </div>
+
+        <form className="question-list">
+          {choiceQuestions.map((question, questionIndex) => (
+            <fieldset key={question.id} className="question-block">
+              <legend>
+                <span>{question.section}</span>
+                {questionIndex + 1}. {question.prompt}
+              </legend>
+              {question.choices.map((choice, choiceIndex) => {
+                const selected = answers[question.id] === choiceIndex
+                const correct = question.answerIndex === choiceIndex
+
+                return (
+                  <label
+                    key={choice}
+                    data-state={showAnswers && correct ? 'correct' : selected ? 'selected' : undefined}
+                  >
+                    <input
+                      type="radio"
+                      name={question.id}
+                      checked={selected}
+                      onChange={() =>
+                        setAnswers((currentAnswers) => ({
+                          ...currentAnswers,
+                          [question.id]: choiceIndex,
+                        }))
+                      }
+                    />
+                    <span>{choice}</span>
+                  </label>
+                )
+              })}
+            </fieldset>
+          ))}
+
+          {exam.readings.map((reading) => (
+            <section key={reading.title} className="reading-block">
+              <h2>{reading.title}</h2>
+              {reading.text.split('\n\n').map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
-            </div>
-          </section>
-        ) : (
-          <>
-            <div className="exam-score">
-              Score: {score}/{exam.questions.length}
-            </div>
-            <form className="question-list">
-              {exam.questions.map((question, questionIndex) => (
-                <fieldset key={question.id} className="question-block">
-                  <legend>
-                    {questionIndex + 1}. {question.prompt}
-                  </legend>
-                  {question.choices.map((choice, choiceIndex) => (
-                    <label key={choice}>
-                      <input
-                        type="radio"
-                        name={question.id}
-                        checked={answers[question.id] === choiceIndex}
-                        onChange={() =>
-                          setAnswers((currentAnswers) => ({
-                            ...currentAnswers,
-                            [question.id]: choiceIndex,
-                          }))
-                        }
-                      />
-                      <span>{choice}</span>
-                    </label>
-                  ))}
-                </fieldset>
-              ))}
-            </form>
-          </>
-        )}
+            </section>
+          ))}
+
+          {writtenQuestions.map((question, questionIndex) => (
+            <fieldset key={question.id} className="question-block written-question">
+              <legend>
+                <span>{question.section}</span>
+                {choiceQuestions.length + questionIndex + 1}. {question.prompt}
+              </legend>
+              <textarea
+                value={writtenAnswers[question.id] ?? ''}
+                onChange={(event) =>
+                  setWrittenAnswers((currentAnswers) => ({
+                    ...currentAnswers,
+                    [question.id]: event.target.value,
+                  }))
+                }
+                rows={5}
+              />
+              <p>{question.points} points</p>
+              {showAnswers ? (
+                <div className="model-answer">
+                  <strong>Model answer</strong>
+                  <span>{question.modelAnswer}</span>
+                </div>
+              ) : null}
+            </fieldset>
+          ))}
+        </form>
       </section>
     </main>
   )
