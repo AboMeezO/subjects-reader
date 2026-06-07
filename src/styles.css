@@ -48,6 +48,10 @@ a {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.reader-shell[data-sidebar='closed'] .reader-sidebar {
+  display: none;
+}
+
 .reader-sidebar {
   border-inline-end: 1px solid var(--line);
   background: var(--sidebar);
@@ -399,12 +403,20 @@ a {
 }
 
 @media (max-width: 760px) {
+  .sidebar-toggle {
+    display: none;
+  }
+
   .reader-shell {
     display: block;
   }
 
   .reader-shell[data-sidebar='closed'] .reader-main {
-    padding-top: 64px;
+    padding-top: 18px;
+  }
+
+  .reader-shell[data-sidebar='closed'] .reader-sidebar {
+    display: block;
   }
 
   .reader-sidebar {

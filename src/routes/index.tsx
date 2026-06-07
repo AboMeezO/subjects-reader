@@ -36,22 +36,25 @@ function formatDate(value: string) {
 
 function Home() {
   const { documents, selected, content } = Route.useLoaderData()
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    if (typeof window === 'undefined') return true
+    return window.localStorage.getItem('subjects-sidebar-open') !== 'false'
+  })
 
   useEffect(() => {
-    const storedValue = window.localStorage.getItem('subjects-sidebar-open')
-    if (storedValue) {
-      setSidebarOpen(storedValue === 'true')
-    }
-  }, [])
+    window.localStorage.setItem('subjects-sidebar-open', String(sidebarOpen))
+  }, [sidebarOpen])
 
-  function toggleSidebar() {
-    setSidebarOpen((currentValue) => {
-      const nextValue = !currentValue
-      window.localStorage.setItem('subjects-sidebar-open', String(nextValue))
-      return nextValue
-    })
-  }
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 760px)')
+    const syncMobileSidebar = () => {
+      if (mediaQuery.matches) setSidebarOpen(true)
+    }
+
+    syncMobileSidebar()
+    mediaQuery.addEventListener('change', syncMobileSidebar)
+    return () => mediaQuery.removeEventListener('change', syncMobileSidebar)
+  }, [])
 
   return (
     <main className="reader-shell" data-sidebar={sidebarOpen ? 'open' : 'closed'}>
@@ -62,7 +65,16 @@ function Home() {
         aria-expanded={sidebarOpen}
         aria-label={sidebarOpen ? 'Hide files' : 'Show files'}
         title={sidebarOpen ? 'Hide files' : 'Show files'}
-        onClick={toggleSidebar}
+        onClick={() => {
+          setSidebarOpen((currentValue) => {
+            const nextValue = !currentValue
+            document.querySelector('.reader-shell')?.setAttribute(
+              'data-sidebar',
+              nextValue ? 'open' : 'closed',
+            )
+            return nextValue
+          })
+        }}
       >
         {sidebarOpen ? <TbLayoutSidebarLeftCollapse /> : <TbLayoutSidebarLeftExpand />}
       </button>
@@ -70,7 +82,7 @@ function Home() {
         className="reader-sidebar"
         id="document-sidebar"
         aria-label="Documents"
-        hidden={!sidebarOpen}
+        aria-hidden={!sidebarOpen}
       >
         <div className="reader-brand">
           <h1>Subjects Reader</h1>
