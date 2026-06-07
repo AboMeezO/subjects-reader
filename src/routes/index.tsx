@@ -17,7 +17,7 @@ export const Route = createFileRoute('/')({
     file: typeof search.file === 'string' ? search.file : undefined,
   }),
   loaderDeps: ({ search }) => ({ file: search.file }),
-  loader: ({ deps }) => getDocumentPayload({ data: { slug: deps.file } }),
+  loader: ({ deps }) => getDocumentPayload(deps.file),
   component: Home,
 })
 

@@ -2,10 +2,11 @@
   "name": "subjects-reader",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.25.0",
   "scripts": {
     "dev": "vite dev --host 0.0.0.0 --port 3000",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "vite build && node scripts/clean-prerender-html.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {

@@ -1,6 +1,3 @@
-import { createServerFn } from '@tanstack/react-start'
-import { readdir, readFile, stat } from 'node:fs/promises'
-
 type DocumentSummary = {
   slug: string
   title: string
@@ -15,8 +12,11 @@ type DocumentPayload = {
   content: string
 }
 
-const rootDirectory = process.cwd()
-const notesDirectory = `${rootDirectory}/content/notes`
+const markdownFiles = import.meta.glob('../content/notes/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>
 
 function titleFromFilename(filename: string) {
   return filename
@@ -31,47 +31,30 @@ function slugFromFilename(filename: string) {
   return filename.replace(/\.md$/i, '')
 }
 
-async function getMarkdownFiles() {
-  const entries = await readdir(notesDirectory, { withFileTypes: true })
-  const files = entries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'))
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+const documents = Object.entries(markdownFiles)
+  .map(([filePath, content]) => {
+    const filename = filePath.split('/').pop() ?? filePath
 
-  return Promise.all(
-    files.map(async (filename) => {
-      const fileStat = await stat(`${notesDirectory}/${filename}`)
-      return {
+    return {
+      content,
+      summary: {
         slug: slugFromFilename(filename),
         title: titleFromFilename(filename),
         filename,
-        size: fileStat.size,
-        updatedAt: fileStat.mtime.toISOString(),
-      }
-    }),
-  )
+        size: new Blob([content]).size,
+        updatedAt: '2026-06-04T12:09:00.000Z',
+      },
+    }
+  })
+  .sort((a, b) => a.summary.filename.localeCompare(b.summary.filename, undefined, { numeric: true }))
+
+export function getDocumentPayload(slug?: string): DocumentPayload {
+  const selectedDocument =
+    documents.find((document) => document.summary.slug === slug) ?? documents[0] ?? null
+
+  return {
+    documents: documents.map((document) => document.summary),
+    selected: selectedDocument?.summary ?? null,
+    content: selectedDocument?.content ?? '',
+  }
 }
-
-export const getDocumentPayload = createServerFn({ method: 'GET' })
-  .validator((input: unknown) => {
-    if (!input || typeof input !== 'object' || !('slug' in input)) {
-      return { slug: undefined as string | undefined }
-    }
-
-    const slug = (input as { slug?: unknown }).slug
-    return { slug: typeof slug === 'string' ? slug : undefined }
-  })
-  .handler(async ({ data }): Promise<DocumentPayload> => {
-    const documents = await getMarkdownFiles()
-    const selected =
-      documents.find((document) => document.slug === data.slug) ?? documents[0] ?? null
-
-    if (!selected) {
-      return { documents, selected: null, content: '' }
-    }
-
-    const filePath = `${notesDirectory}/${selected.filename}`
-    const content = await readFile(filePath, 'utf8')
-
-    return { documents, selected, content }
-  })
