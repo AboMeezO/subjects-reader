@@ -48,15 +48,18 @@ a {
   color: inherit;
 }
 
-.app-shell,
-.study-shell {
+.app-shell {
   min-height: 100vh;
   padding: 24px clamp(18px, 5vw, 72px) 56px;
 }
 
-.app-shell.wide {
+.wide {
   max-width: 1180px;
   margin: 0 auto;
+}
+
+.study-shell {
+  min-width: 0;
 }
 
 .app-nav {
