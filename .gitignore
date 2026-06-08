@@ -6,3 +6,4 @@ dist
 build
 *.local
 content/exams/sources/
+content/subjects/*/exams/sources/
