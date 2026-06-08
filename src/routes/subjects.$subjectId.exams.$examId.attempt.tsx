@@ -1,13 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
-import { AppNav } from '../components/AppNav'
 import type { ExamResult } from '../features/exams/types'
-import { getSubjectExam, submitExamAttempt } from '../server/exams'
+import { submitExamAttempt } from '../server/exams'
+import { Route as ExamRoute } from './subjects.$subjectId.exams.$examId'
 
 export const Route = createFileRoute('/subjects/$subjectId/exams/$examId/attempt')({
-  loader: ({ params }) =>
-    getSubjectExam({ data: { subjectId: params.subjectId, examId: params.examId } }),
   component: ExamAttempt,
 })
 
@@ -19,7 +17,7 @@ function formatTime(seconds: number) {
 }
 
 function ExamAttempt() {
-  const exam = Route.useLoaderData()
+  const exam = ExamRoute.useLoaderData()
   const [choiceAnswers, setChoiceAnswers] = useState<Record<string, number>>({})
   const [writtenAnswers, setWrittenAnswers] = useState<Record<string, string>>({})
   const [remainingSeconds, setRemainingSeconds] = useState(exam.durationSeconds)
@@ -72,8 +70,7 @@ function ExamAttempt() {
   const submitted = Boolean(result)
 
   return (
-    <main className="app-shell wide">
-      <AppNav subjectId={exam.subjectId} />
+    <section className="wide">
       <section className="attempt-header">
         <div>
           <p>Active attempt</p>
@@ -201,6 +198,6 @@ function ExamAttempt() {
           </Link>
         </div>
       </form>
-    </main>
+    </section>
   )
 }

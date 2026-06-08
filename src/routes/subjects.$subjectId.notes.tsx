@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { AppNav } from '../components/AppNav'
 import type { NoteSummary } from '../features/subjects/types'
 import { getSubjectNotes } from '../server/subjects'
 
@@ -12,7 +11,7 @@ function NotesIndex() {
   const { subject, notes } = Route.useLoaderData()
 
   return (
-    <NotesLayout subjectId={subject.id}>
+    <NotesLayout>
       <section className="subject-hero compact">
         <p>{subject.shortTitle}</p>
         <h1>Notes</h1>
@@ -72,16 +71,9 @@ export function NotesSidebar({
 }
 
 export function NotesLayout({
-  subjectId,
   children,
 }: {
-  subjectId: string
   children: React.ReactNode
 }) {
-  return (
-    <main className="study-shell">
-      <AppNav subjectId={subjectId} />
-      {children}
-    </main>
-  )
+  return <section className="study-shell">{children}</section>
 }

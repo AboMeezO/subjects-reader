@@ -24,7 +24,7 @@ function NoteReader() {
   const { subject, notes, selected, content } = Route.useLoaderData()
 
   return (
-    <NotesLayout subjectId={subject.id}>
+    <NotesLayout>
       <div className="study-workspace">
         <NotesSidebar subjectId={subject.id} notes={notes} selectedId={selected.id} />
         <section className="reader-panel">
