@@ -9,55 +9,118 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ExamsRouteImport } from './routes/exams'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SubjectsSubjectIdRouteImport } from './routes/subjects.$subjectId'
+import { Route as SubjectsSubjectIdNotesRouteImport } from './routes/subjects.$subjectId.notes'
+import { Route as SubjectsSubjectIdExamsRouteImport } from './routes/subjects.$subjectId.exams'
+import { Route as SubjectsSubjectIdNotesNoteIdRouteImport } from './routes/subjects.$subjectId.notes.$noteId'
+import { Route as SubjectsSubjectIdExamsExamIdRouteImport } from './routes/subjects.$subjectId.exams.$examId'
+import { Route as SubjectsSubjectIdExamsExamIdAttemptRouteImport } from './routes/subjects.$subjectId.exams.$examId.attempt'
 
-const ExamsRoute = ExamsRouteImport.update({
-  id: '/exams',
-  path: '/exams',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectsSubjectIdRoute = SubjectsSubjectIdRouteImport.update({
+  id: '/subjects/$subjectId',
+  path: '/subjects/$subjectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjectsSubjectIdNotesRoute = SubjectsSubjectIdNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => SubjectsSubjectIdRoute,
+} as any)
+const SubjectsSubjectIdExamsRoute = SubjectsSubjectIdExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
+  getParentRoute: () => SubjectsSubjectIdRoute,
+} as any)
+const SubjectsSubjectIdNotesNoteIdRoute =
+  SubjectsSubjectIdNotesNoteIdRouteImport.update({
+    id: '/$noteId',
+    path: '/$noteId',
+    getParentRoute: () => SubjectsSubjectIdNotesRoute,
+  } as any)
+const SubjectsSubjectIdExamsExamIdRoute =
+  SubjectsSubjectIdExamsExamIdRouteImport.update({
+    id: '/$examId',
+    path: '/$examId',
+    getParentRoute: () => SubjectsSubjectIdExamsRoute,
+  } as any)
+const SubjectsSubjectIdExamsExamIdAttemptRoute =
+  SubjectsSubjectIdExamsExamIdAttemptRouteImport.update({
+    id: '/attempt',
+    path: '/attempt',
+    getParentRoute: () => SubjectsSubjectIdExamsExamIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/exams': typeof ExamsRoute
+  '/subjects/$subjectId': typeof SubjectsSubjectIdRouteWithChildren
+  '/subjects/$subjectId/exams': typeof SubjectsSubjectIdExamsRouteWithChildren
+  '/subjects/$subjectId/notes': typeof SubjectsSubjectIdNotesRouteWithChildren
+  '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
+  '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
+  '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/exams': typeof ExamsRoute
+  '/subjects/$subjectId': typeof SubjectsSubjectIdRouteWithChildren
+  '/subjects/$subjectId/exams': typeof SubjectsSubjectIdExamsRouteWithChildren
+  '/subjects/$subjectId/notes': typeof SubjectsSubjectIdNotesRouteWithChildren
+  '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
+  '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
+  '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/exams': typeof ExamsRoute
+  '/subjects/$subjectId': typeof SubjectsSubjectIdRouteWithChildren
+  '/subjects/$subjectId/exams': typeof SubjectsSubjectIdExamsRouteWithChildren
+  '/subjects/$subjectId/notes': typeof SubjectsSubjectIdNotesRouteWithChildren
+  '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
+  '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
+  '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/exams'
+  fullPaths:
+    | '/'
+    | '/subjects/$subjectId'
+    | '/subjects/$subjectId/exams'
+    | '/subjects/$subjectId/notes'
+    | '/subjects/$subjectId/exams/$examId'
+    | '/subjects/$subjectId/notes/$noteId'
+    | '/subjects/$subjectId/exams/$examId/attempt'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/exams'
-  id: '__root__' | '/' | '/exams'
+  to:
+    | '/'
+    | '/subjects/$subjectId'
+    | '/subjects/$subjectId/exams'
+    | '/subjects/$subjectId/notes'
+    | '/subjects/$subjectId/exams/$examId'
+    | '/subjects/$subjectId/notes/$noteId'
+    | '/subjects/$subjectId/exams/$examId/attempt'
+  id:
+    | '__root__'
+    | '/'
+    | '/subjects/$subjectId'
+    | '/subjects/$subjectId/exams'
+    | '/subjects/$subjectId/notes'
+    | '/subjects/$subjectId/exams/$examId'
+    | '/subjects/$subjectId/notes/$noteId'
+    | '/subjects/$subjectId/exams/$examId/attempt'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ExamsRoute: typeof ExamsRoute
+  SubjectsSubjectIdRoute: typeof SubjectsSubjectIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/exams': {
-      id: '/exams'
-      path: '/exams'
-      fullPath: '/exams'
-      preLoaderRoute: typeof ExamsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -65,12 +128,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjects/$subjectId': {
+      id: '/subjects/$subjectId'
+      path: '/subjects/$subjectId'
+      fullPath: '/subjects/$subjectId'
+      preLoaderRoute: typeof SubjectsSubjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjects/$subjectId/notes': {
+      id: '/subjects/$subjectId/notes'
+      path: '/notes'
+      fullPath: '/subjects/$subjectId/notes'
+      preLoaderRoute: typeof SubjectsSubjectIdNotesRouteImport
+      parentRoute: typeof SubjectsSubjectIdRoute
+    }
+    '/subjects/$subjectId/exams': {
+      id: '/subjects/$subjectId/exams'
+      path: '/exams'
+      fullPath: '/subjects/$subjectId/exams'
+      preLoaderRoute: typeof SubjectsSubjectIdExamsRouteImport
+      parentRoute: typeof SubjectsSubjectIdRoute
+    }
+    '/subjects/$subjectId/notes/$noteId': {
+      id: '/subjects/$subjectId/notes/$noteId'
+      path: '/$noteId'
+      fullPath: '/subjects/$subjectId/notes/$noteId'
+      preLoaderRoute: typeof SubjectsSubjectIdNotesNoteIdRouteImport
+      parentRoute: typeof SubjectsSubjectIdNotesRoute
+    }
+    '/subjects/$subjectId/exams/$examId': {
+      id: '/subjects/$subjectId/exams/$examId'
+      path: '/$examId'
+      fullPath: '/subjects/$subjectId/exams/$examId'
+      preLoaderRoute: typeof SubjectsSubjectIdExamsExamIdRouteImport
+      parentRoute: typeof SubjectsSubjectIdExamsRoute
+    }
+    '/subjects/$subjectId/exams/$examId/attempt': {
+      id: '/subjects/$subjectId/exams/$examId/attempt'
+      path: '/attempt'
+      fullPath: '/subjects/$subjectId/exams/$examId/attempt'
+      preLoaderRoute: typeof SubjectsSubjectIdExamsExamIdAttemptRouteImport
+      parentRoute: typeof SubjectsSubjectIdExamsExamIdRoute
+    }
   }
 }
 
+interface SubjectsSubjectIdExamsExamIdRouteChildren {
+  SubjectsSubjectIdExamsExamIdAttemptRoute: typeof SubjectsSubjectIdExamsExamIdAttemptRoute
+}
+
+const SubjectsSubjectIdExamsExamIdRouteChildren: SubjectsSubjectIdExamsExamIdRouteChildren =
+  {
+    SubjectsSubjectIdExamsExamIdAttemptRoute:
+      SubjectsSubjectIdExamsExamIdAttemptRoute,
+  }
+
+const SubjectsSubjectIdExamsExamIdRouteWithChildren =
+  SubjectsSubjectIdExamsExamIdRoute._addFileChildren(
+    SubjectsSubjectIdExamsExamIdRouteChildren,
+  )
+
+interface SubjectsSubjectIdExamsRouteChildren {
+  SubjectsSubjectIdExamsExamIdRoute: typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
+}
+
+const SubjectsSubjectIdExamsRouteChildren: SubjectsSubjectIdExamsRouteChildren =
+  {
+    SubjectsSubjectIdExamsExamIdRoute:
+      SubjectsSubjectIdExamsExamIdRouteWithChildren,
+  }
+
+const SubjectsSubjectIdExamsRouteWithChildren =
+  SubjectsSubjectIdExamsRoute._addFileChildren(
+    SubjectsSubjectIdExamsRouteChildren,
+  )
+
+interface SubjectsSubjectIdNotesRouteChildren {
+  SubjectsSubjectIdNotesNoteIdRoute: typeof SubjectsSubjectIdNotesNoteIdRoute
+}
+
+const SubjectsSubjectIdNotesRouteChildren: SubjectsSubjectIdNotesRouteChildren =
+  {
+    SubjectsSubjectIdNotesNoteIdRoute: SubjectsSubjectIdNotesNoteIdRoute,
+  }
+
+const SubjectsSubjectIdNotesRouteWithChildren =
+  SubjectsSubjectIdNotesRoute._addFileChildren(
+    SubjectsSubjectIdNotesRouteChildren,
+  )
+
+interface SubjectsSubjectIdRouteChildren {
+  SubjectsSubjectIdExamsRoute: typeof SubjectsSubjectIdExamsRouteWithChildren
+  SubjectsSubjectIdNotesRoute: typeof SubjectsSubjectIdNotesRouteWithChildren
+}
+
+const SubjectsSubjectIdRouteChildren: SubjectsSubjectIdRouteChildren = {
+  SubjectsSubjectIdExamsRoute: SubjectsSubjectIdExamsRouteWithChildren,
+  SubjectsSubjectIdNotesRoute: SubjectsSubjectIdNotesRouteWithChildren,
+}
+
+const SubjectsSubjectIdRouteWithChildren =
+  SubjectsSubjectIdRoute._addFileChildren(SubjectsSubjectIdRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ExamsRoute: ExamsRoute,
+  SubjectsSubjectIdRoute: SubjectsSubjectIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
