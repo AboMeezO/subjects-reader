@@ -1,19 +1,17 @@
 # Subjects Reader
 
-A local web reader for the Action Pack 12 study notes. It exists so the Markdown files can be opened from a phone through a browser without copying the documents around.
+A local multi-subject study app for notes and timed exam practice.
 
-> باختصار مكسل أضل أنسخ ملفات من الكمبيوتر للتلفون وبدي أروح أدرس بالصالة :)
-
-The app scans `content/notes`, lists the Markdown files in the sidebar, and renders the selected file as readable HTML. Source study files are not edited or exposed as download links.
-
-Built with TanStack Start, React, TypeScript, pnpm, Tailwind CSS, and react-markdown.
+The app organizes content by subject, renders Markdown notes, and runs exam attempts through TanStack Start server functions so answer keys stay server-side until submission.
 
 ## Structure
 
 ```text
-content/notes       Markdown study files
-content/reference   Source reference files
-src                 TanStack Start app
+content/subjects/<subject>/subject.json   Subject metadata
+content/subjects/<subject>/notes          Markdown notes
+content/subjects/<subject>/reference      Reference files
+src/server                                Server functions and server-only data
+src/routes                                TanStack Router file routes
 ```
 
 ## Run
@@ -21,4 +19,10 @@ src                 TanStack Start app
 ```bash
 pnpm install
 pnpm dev
+```
+
+## Build
+
+```bash
+pnpm build
 ```
