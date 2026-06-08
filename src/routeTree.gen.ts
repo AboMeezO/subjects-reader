@@ -14,6 +14,7 @@ import { Route as SubjectsSubjectIdRouteImport } from './routes/subjects.$subjec
 import { Route as SubjectsSubjectIdIndexRouteImport } from './routes/subjects.$subjectId.index'
 import { Route as SubjectsSubjectIdNotesRouteImport } from './routes/subjects.$subjectId.notes'
 import { Route as SubjectsSubjectIdExamsRouteImport } from './routes/subjects.$subjectId.exams'
+import { Route as SubjectsSubjectIdNotesIndexRouteImport } from './routes/subjects.$subjectId.notes.index'
 import { Route as SubjectsSubjectIdExamsIndexRouteImport } from './routes/subjects.$subjectId.exams.index'
 import { Route as SubjectsSubjectIdNotesNoteIdRouteImport } from './routes/subjects.$subjectId.notes.$noteId'
 import { Route as SubjectsSubjectIdExamsExamIdRouteImport } from './routes/subjects.$subjectId.exams.$examId'
@@ -45,6 +46,12 @@ const SubjectsSubjectIdExamsRoute = SubjectsSubjectIdExamsRouteImport.update({
   path: '/exams',
   getParentRoute: () => SubjectsSubjectIdRoute,
 } as any)
+const SubjectsSubjectIdNotesIndexRoute =
+  SubjectsSubjectIdNotesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => SubjectsSubjectIdNotesRoute,
+  } as any)
 const SubjectsSubjectIdExamsIndexRoute =
   SubjectsSubjectIdExamsIndexRouteImport.update({
     id: '/',
@@ -85,15 +92,16 @@ export interface FileRoutesByFullPath {
   '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
   '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
   '/subjects/$subjectId/exams/': typeof SubjectsSubjectIdExamsIndexRoute
+  '/subjects/$subjectId/notes/': typeof SubjectsSubjectIdNotesIndexRoute
   '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
   '/subjects/$subjectId/exams/$examId/': typeof SubjectsSubjectIdExamsExamIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/subjects/$subjectId/notes': typeof SubjectsSubjectIdNotesRouteWithChildren
   '/subjects/$subjectId': typeof SubjectsSubjectIdIndexRoute
   '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
   '/subjects/$subjectId/exams': typeof SubjectsSubjectIdExamsIndexRoute
+  '/subjects/$subjectId/notes': typeof SubjectsSubjectIdNotesIndexRoute
   '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
   '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdIndexRoute
 }
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/subjects/$subjectId/exams/$examId': typeof SubjectsSubjectIdExamsExamIdRouteWithChildren
   '/subjects/$subjectId/notes/$noteId': typeof SubjectsSubjectIdNotesNoteIdRoute
   '/subjects/$subjectId/exams/': typeof SubjectsSubjectIdExamsIndexRoute
+  '/subjects/$subjectId/notes/': typeof SubjectsSubjectIdNotesIndexRoute
   '/subjects/$subjectId/exams/$examId/attempt': typeof SubjectsSubjectIdExamsExamIdAttemptRoute
   '/subjects/$subjectId/exams/$examId/': typeof SubjectsSubjectIdExamsExamIdIndexRoute
 }
@@ -121,15 +130,16 @@ export interface FileRouteTypes {
     | '/subjects/$subjectId/exams/$examId'
     | '/subjects/$subjectId/notes/$noteId'
     | '/subjects/$subjectId/exams/'
+    | '/subjects/$subjectId/notes/'
     | '/subjects/$subjectId/exams/$examId/attempt'
     | '/subjects/$subjectId/exams/$examId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/subjects/$subjectId/notes'
     | '/subjects/$subjectId'
     | '/subjects/$subjectId/notes/$noteId'
     | '/subjects/$subjectId/exams'
+    | '/subjects/$subjectId/notes'
     | '/subjects/$subjectId/exams/$examId/attempt'
     | '/subjects/$subjectId/exams/$examId'
   id:
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/subjects/$subjectId/exams/$examId'
     | '/subjects/$subjectId/notes/$noteId'
     | '/subjects/$subjectId/exams/'
+    | '/subjects/$subjectId/notes/'
     | '/subjects/$subjectId/exams/$examId/attempt'
     | '/subjects/$subjectId/exams/$examId/'
   fileRoutesById: FileRoutesById
@@ -187,6 +198,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/subjects/$subjectId/exams'
       preLoaderRoute: typeof SubjectsSubjectIdExamsRouteImport
       parentRoute: typeof SubjectsSubjectIdRoute
+    }
+    '/subjects/$subjectId/notes/': {
+      id: '/subjects/$subjectId/notes/'
+      path: '/'
+      fullPath: '/subjects/$subjectId/notes/'
+      preLoaderRoute: typeof SubjectsSubjectIdNotesIndexRouteImport
+      parentRoute: typeof SubjectsSubjectIdNotesRoute
     }
     '/subjects/$subjectId/exams/': {
       id: '/subjects/$subjectId/exams/'
@@ -263,11 +281,13 @@ const SubjectsSubjectIdExamsRouteWithChildren =
 
 interface SubjectsSubjectIdNotesRouteChildren {
   SubjectsSubjectIdNotesNoteIdRoute: typeof SubjectsSubjectIdNotesNoteIdRoute
+  SubjectsSubjectIdNotesIndexRoute: typeof SubjectsSubjectIdNotesIndexRoute
 }
 
 const SubjectsSubjectIdNotesRouteChildren: SubjectsSubjectIdNotesRouteChildren =
   {
     SubjectsSubjectIdNotesNoteIdRoute: SubjectsSubjectIdNotesNoteIdRoute,
+    SubjectsSubjectIdNotesIndexRoute: SubjectsSubjectIdNotesIndexRoute,
   }
 
 const SubjectsSubjectIdNotesRouteWithChildren =

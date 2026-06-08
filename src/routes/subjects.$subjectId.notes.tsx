@@ -1,40 +1,12 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import type { NoteSummary } from '../features/subjects/types'
-import { getSubjectNotes } from '../server/subjects'
 
 export const Route = createFileRoute('/subjects/$subjectId/notes')({
-  loader: ({ params }) => getSubjectNotes({ data: { subjectId: params.subjectId } }),
-  component: NotesIndex,
+  component: NotesLayoutRoute,
 })
 
-function NotesIndex() {
-  const { subject, notes } = Route.useLoaderData()
-
-  return (
-    <NotesLayout>
-      <section className="subject-hero compact">
-        <p>{subject.shortTitle}</p>
-        <h1>Notes</h1>
-        <span>Select a file from the subject library.</span>
-      </section>
-      <div className="subject-grid">
-        {notes.map((note) => (
-          <Link
-            key={note.id}
-            className="subject-card"
-            to="/subjects/$subjectId/notes/$noteId"
-            params={{ subjectId: subject.id, noteId: note.id }}
-          >
-            <div>
-              <span>{note.filename}</span>
-              <h2>{note.title}</h2>
-              <p>{Math.max(1, Math.round(note.size / 1024))} KB</p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </NotesLayout>
-  )
+function NotesLayoutRoute() {
+  return <Outlet />
 }
 
 export function NotesSidebar({
@@ -70,10 +42,6 @@ export function NotesSidebar({
   )
 }
 
-export function NotesLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export function NotesLayout({ children }: { children: React.ReactNode }) {
   return <section className="study-shell">{children}</section>
 }
