@@ -428,11 +428,48 @@ dd {
   padding: 14px 16px;
 }
 
+.markdown-body pre:has(.mermaid-diagram) {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
 .markdown-body pre code {
   background: transparent;
   border: 0;
   display: block;
   padding: 0;
+}
+
+.mermaid-diagram {
+  background:
+    linear-gradient(180deg, rgba(226, 183, 93, 0.06), rgba(123, 201, 149, 0.04)),
+    #11161c;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  margin: 1rem 0;
+  min-height: 120px;
+  overflow-x: auto;
+  padding: 16px;
+  text-align: center;
+}
+
+.mermaid-diagram svg {
+  height: auto;
+  max-width: none;
+  min-width: min(100%, 680px);
+}
+
+.mermaid-diagram span {
+  color: var(--muted);
+  display: inline-block;
+  padding: 34px 0;
+}
+
+.mermaid-fallback {
+  direction: ltr;
+  text-align: left;
 }
 
 .markdown-body table {

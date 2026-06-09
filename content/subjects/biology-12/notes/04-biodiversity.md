@@ -3,6 +3,66 @@
 ## Overview
 تشرح الوحدة مستويات التنوع الحيوي وأهميته، الأخطار التي تهدده، وطرق المحافظة عليه واستدامته في الأنظمة البيئية.
 
+## Study Diagrams
+### Biodiversity Levels
+```mermaid
+flowchart TD
+  bio["Biodiversity"] --> genetic["Genetic Diversity<br/>اختلاف الجينات داخل النوع"]
+  bio --> species["Species Diversity<br/>عدد الأنواع ونسبة كل منها"]
+  bio --> ecosystem["Ecosystem Diversity<br/>تنوع المواطن والأنظمة"]
+  genetic --> survival["يزيد القدرة على البقاء عند المرض أو تغير البيئة"]
+  species --> stability["يدعم استقرار العلاقات الغذائية"]
+  ecosystem --> services["موائل وموارد وخدمات بيئية"]
+```
+
+### Threats to Biodiversity
+```mermaid
+flowchart TD
+  threats["Threats"] --> habitat["Habitat Loss / Fragmentation"]
+  threats --> invasive["Invasive Species"]
+  threats --> pollution["Pollution<br/>Acid Precipitation"]
+  threats --> overuse["Overhunting / Overuse"]
+  threats --> climate["Climate Change"]
+  habitat --> edge["Edge Effect<br/>ضوء / رطوبة / مفترسات"]
+  invasive --> native["Native Species<br/>تنافس أو افتراس أو مرض"]
+  pollution --> indicators["Bioindicators<br/>إنذار مبكر"]
+  threats --> extinction["Extinction Risk"]
+```
+
+### Extinction Types
+```mermaid
+graph LR
+  extinction["Extinction"] --> background["Background Extinction<br/>طبيعي وبطيء"]
+  extinction --> mass["Mass Extinction<br/>واسع وسريع نسبيا"]
+  lowGenetic["Low Genetic Diversity"] --> vulnerability["حساسية أكبر للتغير"]
+  vulnerability --> extinction
+```
+
+### Conservation Methods
+```mermaid
+flowchart TD
+  conservation["Conservation"] --> reserves["Natural Reserves<br/>حجم وشكل وانتقال الأنواع"]
+  conservation --> cites["CITES<br/>منع الاتجار بالأنواع المهددة"]
+  conservation --> corridors["Wildlife Corridors<br/>تبادل جينات"]
+  conservation --> hotspot["Biodiversity Hotspots<br/>أولوية حفظ"]
+  conservation --> umbrella["Umbrella Species<br/>حماية نوع تحمي أنواعا أخرى"]
+  conservation --> restore["Habitat Restoration"]
+  conservation --> awareness["قوانين وتوعية وسياحة بيئية"]
+```
+
+### Sustainability Relationship
+```mermaid
+flowchart LR
+  resources["Biological Resources"] --> use["استخدام الإنسان"]
+  use --> pressure["ضغط على الأنظمة البيئية"]
+  sustainability["Sustainable Development"] --> tech["تطوير التقنيات"]
+  sustainability --> improve["تحسين الأنظمة البيئية"]
+  sustainability --> future["حفظ حق الأجيال اللاحقة"]
+  tech --> lessDamage["تقليل الضرر"]
+  improve --> stability["Ecosystem Stability"]
+  pressure -. "إذا زاد" .-> loss["فقد تنوع حيوي"]
+```
+
 ## Key Terms
 | Term | Meaning |
 | ---- | ------- |

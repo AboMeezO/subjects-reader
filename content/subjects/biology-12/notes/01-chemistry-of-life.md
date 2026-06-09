@@ -3,6 +3,94 @@
 ## Overview
 تركز الوحدة على المركبات العضوية الحيوية في أجسام الكائنات الحية، ودور الإنزيمات وATP في التفاعلات، وكيف تحصل الخلية على الطاقة أو تخزنها في التنفس الخلوي والبناء الضوئي.
 
+## Study Diagrams
+### Organic Compounds Classification
+هذا التصنيف يجمع درس المركبات العضوية الحيوية في خريطة واحدة: التركيب، الرابط المهم، والوظيفة.
+
+```mermaid
+flowchart TD
+  bio["Bioorganic Compounds<br/>C + H أساسا"] --> carb["Carbohydrates<br/>C,H,O"]
+  bio --> lipid["Lipids<br/>غير قطبية غالبا"]
+  bio --> protein["Proteins<br/>Amino Acids"]
+  bio --> nucleic["Nucleic Acids<br/>Nucleotides"]
+  carb --> mono["Monosaccharides<br/>Glucose / Fructose"]
+  carb --> di["Disaccharides<br/>Glycosidic Bond"]
+  carb --> poly["Polysaccharides<br/>Starch / Glycogen / Cellulose"]
+  lipid --> tri["Triglycerides<br/>Glycerol + 3 Fatty Acids"]
+  lipid --> phospho["Phospholipids<br/>غشاء الخلية"]
+  lipid --> steroid["Steroids<br/>حلقات + مجموعات وظيفية"]
+  protein --> peptide["Peptide Bonds<br/>تركيب أولي إلى رباعي"]
+  nucleic --> dna["DNA<br/>A-T و C-G"]
+  nucleic --> rna["RNA<br/>U بدل T"]
+```
+
+### Enzymes and ATP Relationship
+الإنزيمات تتحكم في سرعة التفاعل، وATP ينقل الطاقة اللازمة لكثير من التفاعلات.
+
+```mermaid
+flowchart LR
+  substrate["Substrate<br/>المادة المتفاعلة"] --> active["Active Site<br/>الموقع النشط"]
+  active --> complex["Enzyme-Substrate Complex"]
+  complex --> product["Products<br/>نواتج"]
+  enzyme["Enzyme<br/>يقلل Activation Energy"] --> active
+  atp["ATP"] -- "ATPase" --> adp["ADP + Pi + طاقة"]
+  adp -- "ATP Synthase<br/>فسفرة" --> atp
+  product --> cellwork["Cell Work<br/>نقل / بناء / انقسام"]
+  atp --> cellwork
+```
+
+### Cellular Respiration Flow
+احفظ المكان والنواتج؛ الحسابات في الامتحان غالبا تضرب هذه القيم في عدد جزيئات Glucose.
+
+```mermaid
+flowchart TD
+  glucose["Glucose"] --> glycolysis["Glycolysis<br/>سيتوسول<br/>2 ATP + 2 NADH + 2 Pyruvate"]
+  glycolysis --> acetyl["Pyruvate Oxidation<br/>Acetyl-CoA + NADH + CO2"]
+  acetyl --> krebs["Krebs Cycle<br/>لكل Glucose: 6 NADH + 2 FADH2 + 2 ATP"]
+  krebs --> etc["Electron Transport Chain<br/>NADH/FADH2 تسلم الإلكترونات"]
+  etc --> chemo["Chemiosmosis<br/>ATP Synthase"]
+  chemo --> atp["Oxidative Phosphorylation<br/>34 ATP حسب الكتاب"]
+  etc --> water["O2 مستقبل نهائي<br/>يتكون H2O"]
+  glycolysis --> fermentation["عند نقص O2<br/>Fermentation"]
+  fermentation --> lactic["Lactic Acid<br/>عضلات الإنسان"]
+  fermentation --> alcohol["Ethanol + CO2<br/>خميرة"]
+```
+
+### Photosynthesis Flow
+اربط بين التفاعلات الضوئية وحلقة كالفن: الأولى تنتج ATP وNADPH، والثانية تستهلكهما لبناء Glucose.
+
+```mermaid
+flowchart TD
+  light["Light"] --> psii["PSII<br/>يبدأ المسار اللاحلقي"]
+  water["H2O"] --> psii
+  psii --> o2["O2"]
+  psii --> chain["Electron Transport Chain<br/>فرق بروتونات"]
+  chain --> atp["ATP"]
+  chain --> psi["PSI"]
+  psi --> nadph["NADPH"]
+  co2["CO2"] --> calvin["Calvin Cycle<br/>Stroma"]
+  atp --> calvin
+  nadph --> calvin
+  calvin --> pgal["PGAL"]
+  pgal --> glucose["Glucose<br/>2 PGAL"]
+  psi -. "Cyclic Light Reactions<br/>ATP فقط" .-> atp
+```
+
+### Glucose, ATP, Respiration, and Photosynthesis
+هذه العلاقة تربط الوحدة كلها: البناء الضوئي يخزن الطاقة في Glucose، والتنفس يحررها على شكل ATP.
+
+```mermaid
+graph LR
+  sun["طاقة ضوئية"] --> photo["Photosynthesis"]
+  photo --> glucose2["Glucose"]
+  glucose2 --> resp["Cellular Respiration"]
+  resp --> atp2["ATP"]
+  atp2 --> reactions["تفاعلات الخلية<br/>نقل / بناء / انقسام"]
+  reactions --> heat["حرارة + نواتج"]
+  resp --> co2water["CO2 + H2O"]
+  co2water --> photo
+```
+
 ## Key Terms
 | Term | Meaning |
 | ---- | ------- |

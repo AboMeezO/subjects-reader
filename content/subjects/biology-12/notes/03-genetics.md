@@ -3,6 +3,97 @@
 ## Overview
 تشرح الوحدة انتقال المعلومات الوراثية من الآباء إلى الأبناء، قوانين مندل، الأنماط غير المندلية، الطفرات والاختلالات الوراثية، وأدوات Biotechnology.
 
+## Study Diagrams
+### Mendelian Inheritance Logic
+```mermaid
+flowchart TD
+  parents["Parents<br/>طرز جينية"] --> gametes["Gametes<br/>انفصال الأليلات"]
+  gametes --> punnett["Punnett Square<br/>تركيب احتمالات"]
+  punnett --> genotype["Genotype Ratio"]
+  genotype --> phenotype["Phenotype Ratio"]
+  phenotype --> answer["احتمال / عدد أفراد / طراز مطلوب"]
+```
+
+### Law of Segregation and Independent Assortment
+```mermaid
+graph LR
+  gene["Gene Aa"] --> segregation["Law of Segregation<br/>A و a ينفصلان في الجاميتات"]
+  twoGenes["Genes AaBb"] --> independent["Law of Independent Assortment<br/>إذا كانت على كروموسومات مختلفة"]
+  independent --> gametes2["AB / Ab / aB / ab"]
+  crossing["Crossing Over"] --> linked["يؤثر في الجينات على الكروموسوم نفسه"]
+  random["Random Orientation"] --> independent
+```
+
+### Pedigree Analysis
+```mermaid
+flowchart TD
+  pedigree["Pedigree"] --> affected["حدد المصابين"]
+  affected --> sex["هل يظهر في الجنسين؟"]
+  sex --> recessive["مصاب من أبوين طبيعيين<br/>صفة متنحية غالبا"]
+  sex --> xlinked["ذكور أكثر إصابة<br/>افحص X-linked"]
+  recessive --> carriers["حدد الحاملين Heterozygous"]
+  xlinked --> mother["الذكر يأخذ X من الأم"]
+  carriers --> probability["احسب الاحتمال"]
+  mother --> probability
+```
+
+### Non-Mendelian Inheritance Map
+```mermaid
+flowchart TD
+  non["Non-Mendelian Patterns"] --> codom["Codominance<br/>الأليلان يظهران معا<br/>Camellia / MN / AB"]
+  non --> multiple["Multiple Alleles<br/>ABO"]
+  non --> poly["Polygenic<br/>تدرج مستمر"]
+  non --> sex["Sex-linked<br/>Duchenne / Haemophilia"]
+  non --> linked["Linked Genes<br/>تراكيب أبوية أكثر"]
+  non --> temp["Pivotal Temperature<br/>تحديد الجنس بالحرارة"]
+  non --> epi["Epigenetics<br/>تعبير جيني بلا تغيير DNA"]
+```
+
+### Linked Genes and Gene Maps
+```mermaid
+flowchart LR
+  linkedGenes["Genes on same chromosome"] --> together["تميل للتوارث معا"]
+  crossingOver["Crossing Over"] --> recomb["Recombinant offspring"]
+  recomb --> percent["Recombination %"]
+  percent --> distance["كلما زادت النسبة<br/>زادت المسافة"]
+  percent --> map["Gene Map"]
+  low["أقل نسبة عبور"] --> close["ارتباط أقوى وقرب أكبر"]
+```
+
+### Mutations and Genetic Disorders
+```mermaid
+flowchart TD
+  mutation["Mutation"] --> geneMut["Gene Mutation"]
+  mutation --> chromMut["Chromosomal Mutation"]
+  mutation --> numberMut["Number Change"]
+  geneMut --> silent["Silent<br/>لا تغير البروتين"]
+  geneMut --> missense["Missense<br/>تغير حمض أميني"]
+  geneMut --> nonsense["Nonsense<br/>Stop"]
+  geneMut --> frameshift["Frameshift<br/>حذف أو إضافة"]
+  chromMut --> deletion["Deletion"]
+  chromMut --> duplication["Duplication"]
+  chromMut --> inversion["Inversion"]
+  chromMut --> translocation["Translocation"]
+  numberMut --> down["Down<br/>2n+1"]
+  numberMut --> turner["Turner<br/>XO"]
+  numberMut --> kline["Klinefelter<br/>XXY"]
+```
+
+### Biotechnology Process Map
+```mermaid
+flowchart TD
+  dna["DNA Concepts"] --> restriction["Restriction Enzymes<br/>Recognition sequence"]
+  restriction --> ends["Sticky / Blunt ends"]
+  ends --> plasmid["Plasmid<br/>ناقل جيني"]
+  plasmid --> recombinant["Recombinant DNA"]
+  recombinant --> bacteria["Modified cell<br/>إنتاج بروتين"]
+  dna --> pcr["PCR<br/>Denaturation / Annealing / Extension"]
+  pcr --> gel["Gel Electrophoresis<br/>قطع أصغر تتحرك أبعد"]
+  gel --> fingerprint["DNA Fingerprinting"]
+  dna --> therapy["Gene Therapy<br/>إدخال جين سليم"]
+  dna --> genome["Human Genome Project<br/>تسلسل ومواقع الجينات"]
+```
+
 ## Key Terms
 | Term | Meaning |
 | ---- | ------- |

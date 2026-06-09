@@ -27,3 +27,55 @@
 - حل مسائل Mendelian inheritance وNon-Mendelian inheritance.
 - تمييز أنواع mutations والاختلالات الكروموسومية.
 - ربط أمثلة التنوع الحيوي بالأخطار وطرق الحفظ.
+
+## Subject-Level Diagrams
+### Full Biology Study Map
+استخدم هذه الخريطة لتحديد مكان كل وحدة في الصورة الكبرى قبل الدخول في التفاصيل.
+
+```mermaid
+mindmap
+  root((Biology 12))
+    Chemistry of Life
+      Bioorganic Compounds
+      Enzymes and ATP
+      Cellular Respiration
+      Photosynthesis
+    Cell Cycle and Protein Synthesis
+      Cell Cycle
+      Mitosis and Meiosis
+      DNA Replication
+      Gene Expression
+    Genetics
+      Mendelian Inheritance
+      Non-Mendelian Patterns
+      Mutations
+      Biotechnology
+    Biodiversity
+      Biodiversity Levels
+      Threats
+      Conservation
+      Sustainability
+```
+
+### Cross-Topic Relationship Map
+هذه الخريطة تربط الوحدات؛ أسئلة الامتحان قد تنتقل من DNA إلى البروتينات أو من Meiosis إلى الوراثة.
+
+```mermaid
+flowchart LR
+  photosynthesis["Photosynthesis<br/>ينتج Glucose"] --> glucose["Glucose"]
+  glucose --> respiration["Cellular Respiration<br/>ينتج ATP"]
+  respiration --> atp["ATP<br/>يشغل العمليات الخلوية"]
+  atp --> cellcycle["Cell Cycle<br/>نمو وانقسام"]
+  dna["DNA"] --> replication["DNA Replication<br/>قبل الانقسام"]
+  replication --> cellcycle
+  dna --> transcription["Transcription<br/>mRNA"]
+  transcription --> translation["Translation<br/>Protein"]
+  translation --> trait["Trait<br/>طراز شكلي"]
+  meiosis["Meiosis<br/>Gametes"] --> inheritance["Inheritance<br/>انتقال الصفات"]
+  mutation["Mutations"] --> dna
+  mutation --> proteinchange["Protein change<br/>تغير صفة أو مرض"]
+  inheritance --> geneticdiversity["Genetic Diversity"]
+  geneticdiversity --> biodiversity["Biodiversity<br/>بقاء الجماعات"]
+  biotechnology["Biotechnology"] --> dna
+  biotechnology --> diagnosis["PCR / Gel / Fingerprint"]
+```

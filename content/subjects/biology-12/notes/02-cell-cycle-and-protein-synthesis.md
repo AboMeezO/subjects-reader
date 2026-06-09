@@ -3,6 +3,99 @@
 ## Overview
 تركز الوحدة على مراحل حياة الخلية، تنظيم الانقسام، تضاعف DNA، وانتقال المعلومات الوراثية من DNA إلى RNA ثم إلى بروتين.
 
+## Study Diagrams
+### Full Cell Cycle Flow
+الفكرة الأساسية: لا تدخل الخلية مرحلة جديدة إلا إذا اجتازت نقاط المراقبة المناسبة.
+
+```mermaid
+flowchart LR
+  g1["G1<br/>نمو ونشاط"] --> checkpoint1["G1 Checkpoint<br/>أهم نقطة مراقبة"]
+  checkpoint1 --> s["S<br/>DNA Replication"]
+  checkpoint1 --> g0["G0<br/>وظائف بلا استعداد للانقسام"]
+  checkpoint1 --> apoptosis["Apoptosis<br/>إذا كانت غير طبيعية"]
+  s --> g2["G2<br/>استعداد للانقسام"]
+  g2 --> checkpoint2["G2 Checkpoint"]
+  checkpoint2 --> m["M Phase<br/>Mitosis + Cytokinesis"]
+  m --> checkpoint3["M Checkpoint"]
+  checkpoint3 --> g1
+```
+
+### Signals, Checkpoints, and Apoptosis
+هذه خريطة قرار: الإشارات تحدد هل تستمر الخلية، تتوقف، أو تموت موتا مبرمجا.
+
+```mermaid
+flowchart TD
+  signals["Cellular Signals"] --> go["Go-ahead Signals<br/>تقدم"]
+  signals --> stop["Stop Signals<br/>توقف"]
+  signals --> death["Apoptosis Signals<br/>موت مبرمج"]
+  go --> next["انتقال إلى الطور التالي"]
+  stop --> hold["بقاء في الطور الحالي"]
+  death --> enzymes["تنشيط جينات<br/>إنزيمات تحطم مكونات الخلية"]
+  enzymes --> apoptosis2["Apoptosis"]
+  checkpoints["G1 / G2 / M Checkpoints"] --> normal["تمنع انقسام الخلايا غير الطبيعية"]
+  checkpoints -. "إذا فشلت" .-> tumor["زيادة خلايا غير طبيعية<br/>أورام"]
+```
+
+### Mitosis Process
+الانقسام المتساوي يحافظ غالبا على عدد الكروموسومات وينتج خليتين متماثلتين.
+
+```mermaid
+flowchart TD
+  pro["Prophase<br/>تكثف الكروموسومات"] --> meta["Metaphase<br/>اصطفاف عند خط الاستواء"]
+  meta --> ana["Anaphase<br/>انفصال الكروماتيدات الشقيقة"]
+  ana --> telo["Telophase<br/>تكون نواتين"]
+  telo --> cyto["Cytokinesis<br/>انقسام السيتوبلازم"]
+  cyto --> result["خليتان متماثلتان غالبا<br/>2n"]
+```
+
+### Meiosis Process
+الانقسام المنصف ينتج جاميتات، ولذلك يرتبط مباشرة بالوراثة.
+
+```mermaid
+flowchart TD
+  start["خلية 2n"] --> meiosis1["Meiosis I<br/>فصل الكروموسومات المتماثلة"]
+  meiosis1 --> crossing["Crossing Over + Random Orientation<br/>تنوع جيني"]
+  crossing --> two["خليتان n<br/>كروموسومات مكررة"]
+  two --> meiosis2["Meiosis II<br/>فصل الكروماتيدات الشقيقة"]
+  meiosis2 --> gametes["4 Gametes<br/>n ومختلفة غالبا"]
+```
+
+### Mitosis vs Meiosis
+```mermaid
+graph LR
+  division["Cell Division"] --> mitosis["Mitosis<br/>نمو وتعويض<br/>2 خلايا 2n"]
+  division --> meiosis["Meiosis<br/>جاميتات<br/>4 خلايا n"]
+  mitosis --> same["تشابه وراثي غالبا"]
+  meiosis --> variation["تنوع بسبب العبور والترتيب العشوائي"]
+  meiosis --> inheritance["Inheritance<br/>انتقال الصفات"]
+```
+
+### DNA Replication
+```mermaid
+flowchart TD
+  dna["DNA مزدوج"] --> helicase["Helicase<br/>تحطيم الروابط الهيدروجينية"]
+  helicase --> fork["Replication Fork"]
+  fork --> primer["Primase<br/>RNA Primer"]
+  primer --> leading["Leading Strand<br/>بناء مستمر"]
+  primer --> lagging["Lagging Strand<br/>Okazaki fragments"]
+  leading --> polymerase["DNA Polymerase<br/>إضافة 5 إلى 3"]
+  lagging --> ligase["DNA Ligase<br/>ربط القطع"]
+  polymerase --> copies["نسختان متماثلتان"]
+  ligase --> copies
+```
+
+### DNA to Trait
+```mermaid
+flowchart LR
+  dna2["DNA"] --> gene["Gene"]
+  gene --> transcription["Transcription<br/>mRNA"]
+  transcription --> translation["Translation<br/>Ribosome + tRNA"]
+  translation --> protein["Protein<br/>تركيب ووظيفة"]
+  protein --> trait["Trait<br/>طراز شكلي"]
+  mutation["Mutation"] -. "قد تغير" .-> gene
+  mutation -. "قد تغير" .-> protein
+```
+
 ## Key Terms
 | Term | Meaning |
 | ---- | ------- |
