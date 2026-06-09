@@ -22,6 +22,7 @@ function formatDate(value: string) {
 
 function NoteReader() {
   const { subject, notes, selected, content } = Route.useLoaderData()
+  const isRtl = subject.language === 'ar'
 
   return (
     <NotesLayout>
@@ -33,7 +34,7 @@ function NoteReader() {
             <span>{selected.filename}</span>
             <span>{formatDate(selected.updatedAt)}</span>
           </div>
-          <article className="markdown-body" dir="auto">
+          <article className="markdown-body" dir={isRtl ? 'rtl' : 'ltr'} lang={subject.language}>
             <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} rehypePlugins={[rehypeHighlight]}>
               {content}
             </ReactMarkdown>

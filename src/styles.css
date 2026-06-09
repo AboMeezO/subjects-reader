@@ -341,7 +341,30 @@ dd {
   font-size: clamp(1rem, 0.45vw + 0.92rem, 1.13rem);
   line-height: 1.78;
   overflow-wrap: anywhere;
+  text-align: start;
+  unicode-bidi: isolate;
+}
+
+.markdown-body[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+.markdown-body[dir='ltr'] {
+  direction: ltr;
+  text-align: left;
+}
+
+.markdown-body[dir='rtl'] :where(h1, h2, h3, h4, p, li, blockquote, th, td) {
+  direction: rtl;
+  text-align: right;
   unicode-bidi: plaintext;
+}
+
+.markdown-body[dir='rtl'] :where(code, pre, kbd, samp) {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
 }
 
 .markdown-body > :first-child {
