@@ -46,6 +46,8 @@
 - Bioorganic Compounds: Carbohydrates, Proteins, Lipids, Nucleic Acids.
 - Bonds: Glycosidic, Peptide, Ester, Phosphodiester, Hydrogen.
 - ATP hydrolysis: ADP + Pi + طاقة متحررة.
+- Oxidative phosphorylation: احسب NADH = 3 ATP وFADH2 = 2 ATP في مسائل الكتاب.
+- Krebs Cycle لكل Glucose: دورتان تعطيان 6 NADH و2 FADH2 و2 ATP.
 - Calvin Cycle لكل Glucose: 6 CO2، 18 ATP، 12 NADPH.
 - PCR steps: Denaturation, Annealing, Extension.
 - ABO: `IA` و`IB` سيادة مشتركة، و`i` متنح.
