@@ -341,7 +341,30 @@ dd {
   font-size: clamp(1rem, 0.45vw + 0.92rem, 1.13rem);
   line-height: 1.78;
   overflow-wrap: anywhere;
+  text-align: start;
+  unicode-bidi: isolate;
+}
+
+.markdown-body[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+.markdown-body[dir='ltr'] {
+  direction: ltr;
+  text-align: left;
+}
+
+.markdown-body[dir='rtl'] :where(h1, h2, h3, h4, p, li, blockquote, th, td) {
+  direction: rtl;
+  text-align: right;
   unicode-bidi: plaintext;
+}
+
+.markdown-body[dir='rtl'] :where(code, pre, kbd, samp) {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
 }
 
 .markdown-body > :first-child {
@@ -405,11 +428,48 @@ dd {
   padding: 14px 16px;
 }
 
+.markdown-body pre:has(.mermaid-diagram) {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
 .markdown-body pre code {
   background: transparent;
   border: 0;
   display: block;
   padding: 0;
+}
+
+.mermaid-diagram {
+  background:
+    linear-gradient(180deg, rgba(226, 183, 93, 0.06), rgba(123, 201, 149, 0.04)),
+    #11161c;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  margin: 1rem 0;
+  min-height: 120px;
+  overflow-x: auto;
+  padding: 16px;
+  text-align: center;
+}
+
+.mermaid-diagram svg {
+  height: auto;
+  max-width: none;
+  min-width: min(100%, 680px);
+}
+
+.mermaid-diagram span {
+  color: var(--muted);
+  display: inline-block;
+  padding: 34px 0;
+}
+
+.mermaid-fallback {
+  direction: ltr;
+  text-align: left;
 }
 
 .markdown-body table {
