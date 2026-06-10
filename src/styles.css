@@ -456,12 +456,24 @@ dd {
 }
 
 .mermaid-diagram svg {
+  display: inline-block;
   height: auto;
+  max-height: min(72vh, 620px);
   max-width: none;
-  min-width: min(100%, 680px);
+  min-width: 0;
+  width: auto;
 }
 
-.mermaid-diagram span {
+.mermaid-diagram :where(.nodeLabel, .edgeLabel, .label) {
+  direction: ltr;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Noto Sans Arabic', sans-serif;
+  line-height: 1.35;
+  unicode-bidi: plaintext;
+}
+
+.mermaid-diagram > span {
   color: var(--muted);
   display: inline-block;
   padding: 34px 0;

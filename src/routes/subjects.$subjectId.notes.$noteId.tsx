@@ -21,6 +21,22 @@ function formatDate(value: string) {
   }).format(new Date(value))
 }
 
+function normalizeMermaidSvg(svg: string) {
+  const viewBox = svg.match(/\sviewBox="([^"]+)"/)?.[1]
+  if (!viewBox) {
+    return svg
+  }
+
+  const [, , width, height] = viewBox.split(/\s+/).map(Number)
+  if (!Number.isFinite(width) || !Number.isFinite(height)) {
+    return svg
+  }
+
+  return svg
+    .replace(/\swidth="[^"]*"/, ` width="${Math.ceil(width)}"`)
+    .replace(/\sheight="[^"]*"/, ` height="${Math.ceil(height)}"`)
+}
+
 function MermaidDiagram({ chart }: { chart: string }) {
   const reactId = useId()
   const diagramId = useMemo(() => `mermaid-${reactId.replace(/[^a-zA-Z0-9_-]/g, '')}`, [reactId])
@@ -49,7 +65,7 @@ function MermaidDiagram({ chart }: { chart: string }) {
         })
         const rendered = await mermaid.render(diagramId, chart)
         if (!cancelled) {
-          setSvg(rendered.svg)
+          setSvg(normalizeMermaidSvg(rendered.svg))
           setError('')
         }
       } catch (renderError) {
